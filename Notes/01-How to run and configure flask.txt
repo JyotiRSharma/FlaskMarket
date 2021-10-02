@@ -1,0 +1,9 @@
+D:\Coding\Python\Flask\FlaskMarket>set flask_app=market.py
+
+D:\Coding\Python\Flask\FlaskMarket>set flask_debug=1
+
+D:\Coding\Python\Flask\FlaskMarket>run flask
+'run' is not recognized as an internal or external command,
+operable program or batch file.
+
+D:\Coding\Python\Flask\FlaskMarket>flask run

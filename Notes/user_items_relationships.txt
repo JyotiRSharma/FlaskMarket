@@ -1,0 +1,70 @@
+D:\Coding\Python\Flask\FlaskMarket>py
+Python 3.9.4 (tags/v3.9.4:1f2e308, Apr  6 2021, 13:40:21) [MSC v.1928 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from market import Item
+C:\Users\appde\AppData\Local\Programs\Python\Python39\lib\site-packages\flask_sqlalchemy\__init__.py:872: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
+  warnings.warn(FSADeprecationWarning(
+>>> Item.query.all()
+[Item IPhone 10, Item Laptop, Item Keyboard]
+
+>>> from market import db
+>>> item1 = Item(name="IPhone 11", price=1000, barcode='893212299890', description='This is IPhone 11')
+>>> item4 = Item(name="IPhone 11", price=1000, barcode='893212299890', description='This is IPhone 11')
+>>> db.session.add(item4)
+>>> db.session.commit()
+
+>>> db.drop_all()
+>>> db.create_all()
+
+>>> from market.models import db
+C:\Users\appde\AppData\Local\Programs\Python\Python39\lib\site-packages\flask_sqlalchemy\__init__.py:872: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
+  warnings.warn(FSADeprecationWarning(
+>>> db.drop_all()
+>>> db.create_all()
+>>> from market.models import User,Item
+
+>>> user1 = User(name='Jyoti', password_hash='asda123', email_address='jyotiranjan@gmail.com')
+>>> db.session.add(user1)
+>>> db.session.commit()
+
+>>> User.query.all()
+[<User 1>]
+>>> item1 = Item(name='Iphone 10', barcode='893212299897', price='800', description='desc')
+>>> db.session.add(item1)
+>>> db.session.commit()
+
+>>> item2 = Item(name='Laptop', barcode='123985473165', price='1800', description='laptop')
+>>> db.session.add(item2)
+>>> db.session.commit()
+>>> Item.query.all()
+[Item Iphone 10, Item Laptop]
+>>> item1 = Item.query.filter_by(name='Iphone 10')
+>>> print(item1)
+SELECT item.id AS item_id, item.name AS item_name, item.barcode AS item_barcode, item.price AS item_price, item.description AS item_description, item.owner AS item_owner
+FROM item
+WHERE item.name = ?
+>>> item1
+<flask_sqlalchemy.BaseQuery object at 0x000001898C4B6CA0>
+>>> item1 = Item.query.filter_by(name='Iphone 10').first()
+>>> item1
+Item Iphone 10
+>>> print(item1)
+Item Iphone 10
+>>> item1.owner = User.query.filter_by(name='Jyoti').first()
+>>> item1.owner
+<User 1>
+>>> db.session.add(item1)
+>>> db.session.commit()
+
+>>> db.session.rollback()
+
+>>> item1.owner = User.query.filter_by(name='Jyoti').first().id
+
+>>> db.session.add(item1)
+>>> db.session.commit()
+
+>>> item1.owner
+1
+>>> i = Item.query.filter_by(name='Iphone 10').first()
+>>> i.owned_user
+<User 1>

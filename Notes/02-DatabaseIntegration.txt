@@ -1,0 +1,36 @@
+Open cmd and type py on the same folder where the project resides(root)
+
+type -> from market import db
+
+In PyCharm type these
+from flask_sqlalchemy import SQLAlchemy
+.
+.
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///market.db'  # Here we pass the DB file name.
+db = SQLAlchemy(app)  # initialize an instance of the db class. Pass the app name to the db object.
+
+Create a model class inside the same file like:
+class Item(db.Model):
+	id = db.Column(db.Integer(), primary_key=True)
+	name = db.Column(db.String(length=30), nullable=False, unique=True)
+	barcode = db.Column(db.String(length=12), nullable=False, unique=True)
+	price = db.Column(db.Integer(), nullable=False)
+	description = db.Column(db.String(length=1024), nullable=False, unique=True)
+
+	def __repr__(self):
+		return f'Item {self.name}'
+
+Come back to the cmd and type like to create the above model in sqlite3 db
+
+db.create_all()
+
+then,
+from market import Item
+item1 = Item(name="Iphone 10", price=500, barcode='893212299897', description='This is an IPhone')
+db.session.add(item1)
+db.session.commit()
+
+Now the data is persisted in the DB.
+To see all the data in the db, type:
+Item.query.all()
+

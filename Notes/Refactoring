@@ -1,0 +1,21 @@
+make a package to refactor the model, routes codes.
+make a folder like 'market'
+move everything to that folder
+Create a new file outside our market folder like 'run.py'
+
+run.py contains the crucial code to start the app.
+
+
+Currently these lines are crucial:
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+
+
+app = Flask(__name__)  # Here the __name__ is the same script name, we are in right now.
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///market.db'  # Here we pass the DB file name.
+db = SQLAlchemy(app)  # initialize an instance of the db class. Pass the app name to the db object.
+
+and needs to be moved to __init__.py
+__init__.py
+
+create __init__.py inside the market folders
